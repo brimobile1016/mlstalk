@@ -11,11 +11,14 @@ router.get("/ffstalk", async (req, res) => {
         const apiUrl = `https://saipulanuar.eu.org/api/api.php/ffstalk?id=${id}&apikey=bear`;
         const response = await axios.get(apiUrl);
 
-        res.status(200).json(response.data);
+        // Kirim JSON yang sudah diformat
+        res.setHeader("Content-Type", "application/json; charset=utf-8");
+        res.status(200).send(JSON.stringify(response.data, null, 2));
     } catch (error) {
         console.error("Error:", error.message);
         res.status(500).json({ error: "Gagal mengambil data dari API eksternal" });
     }
 });
+
 
 export default router;
