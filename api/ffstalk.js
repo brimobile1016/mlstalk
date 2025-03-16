@@ -1,6 +1,10 @@
 import axios from "axios";
 
 export default async function handler(req, res) {
+    if (req.method !== "GET") {
+        return res.status(405).json({ error: "Metode tidak diizinkan" });
+    }
+
     try {
         const { id } = req.query;
 
