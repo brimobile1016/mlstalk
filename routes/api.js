@@ -1,41 +1,21 @@
-__path = process.cwd()
+import express from "express";
+import axios from "axios";
 
-// module
-var express = require('express');
-var fetch = require('node-fetch');
-var router  = express.Router();
-// Settings
-const author = "King Of Bear"
+const router = express.Router();
 
-// Mess err
-mess = {
-    error: {
-        status: false,
-        message: 'Error, Service Unavaible',
-        maintanied_by: 'King Of Bear'
-    },
-    noturl: {
-    	status: false,
-    	message: 'Error, Invalid Url',
-    	maintanied_by: 'King Of Bear'
-    },
-    notquery: {
-    	status: false,
-    	code: 403,
-    	message: 'Error, Invalid Query',
-    	maintanied_by: 'King Of Bear'
+router.get("/ffstalk", async (req, res) => {
+    try {
+        const { id } = req.query;
+        if (!id) return res.status(400).json({ error: "Parameter ID diperlukan" });
+
+        const apiUrl = `https://saipulanuar.eu.org/api/api.php/ffstalk?id=${id}&apikey=bear`;
+        const response = await axios.get(apiUrl);
+
+        res.status(200).json(response.data);
+    } catch (error) {
+        console.error("Error:", error.message);
+        res.status(500).json({ error: "Gagal mengambil data dari API eksternal" });
     }
-}
-// Features
-router.get('/ffstalk', async (req, res, next) => {
-	var id = req.query.id
-	if (!id) return res.json(mess.notid)
-	let data = await fetchJson(`https://saipulanuar.eu.org/api/api.php/ffstalk2?id=${id}&apikey=bear`)
-	res.json({
-	status: true,
-	author: `${author}`,
-	result: data.result
-	})
-})
+});
 
-module.exports = router
+export default router;
