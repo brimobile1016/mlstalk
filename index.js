@@ -1,23 +1,29 @@
-var express = require('express'),
-    cors = require('cors'),
-    secure = require('ssl-express-www');
-const PORT = process.env.PORT || 7002 || 5000 || 3000
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+import apiRoutes from "./routes/api.js";
 
-var main = require('./routes/main'),
-    api = require('./routes/api')
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-var app = express()
-app.enable('trust proxy');
-app.set("json spaces",2)
-app.use(cors())
-app.use(secure)
-app.use(express.static("assets"))
+// Konversi path agar sesuai dengan ES Module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-app.use('/', main)
-app.use('/api', api)
+// Middleware untuk JSON
+app.use(express.json());
 
+// Routing API
+app.use("/api", apiRoutes);
+
+// Menyajikan halaman home.html
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "home.html"));
+});
+
+// Menjalankan server (untuk pengujian lokal)
 app.listen(PORT, () => {
-    console.log("Server running on " + PORT)
-})
+    console.log(`Server berjalan di http://localhost:${PORT}`);
+});
 
-module.exports = app
+export default app;
