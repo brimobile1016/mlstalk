@@ -1,8 +1,9 @@
 {
   "version": 2,
-  "functions": {
-    "api/index.ts": {
-      "runtime": "nodejs18.x"
+  "builds": [
+    {
+      "src": "api/index.php",
+      "use": "vercel-php@0.5.1"
     }
-  }
+  ]
 }
