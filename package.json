@@ -1,33 +1,8 @@
 {
-  "name": "zeltoria-api",
-  "version": "4.0.0",
-  "description": "My Rest Api Project",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/saipulanuar/saipul-api.git"
-  },
-  "keywords": [
-    "simple",
-    "api",
-    "rest",
-    "api"
-  ],
-  "author": "Zeltoria",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/saipulanuar/saipul-api/issues"
-  },
+  "name": "mlstalk",
+  "version": "1.0.0",
+  "type": "module",
   "dependencies": {
-    "axios": "^0.21.1",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "node-fetch": "^2.6.1",
-    "ssl-express-www": "^3.0.7"
-  },
-  "homepage": "https://github.com/saipulanuar/saipul-api#readme"
+    "axios": "^1.6.0"
+  }
 }
