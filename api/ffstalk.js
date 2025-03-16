@@ -1,8 +1,7 @@
-const fetch = require("node-fetch");
+import axios from "axios";
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
     try {
-        // Ambil parameter ID dari query
         const { id } = req.query;
 
         if (!id) {
@@ -12,14 +11,13 @@ module.exports = async (req, res) => {
         // URL API target
         const apiUrl = `https://saipulanuar.eu.org/api/api.php/ffstalk?id=${id}&apikey=bear`;
 
-        // Fetch data dari API eksternal
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-
+        // Fetch data dari API eksternal menggunakan Axios
+        const response = await axios.get(apiUrl);
+        
         // Kirim hasil JSON ke response
-        res.status(200).json(data);
+        res.status(200).json(response.data);
     } catch (error) {
-        console.error("Error:", error);
+        console.error("Error:", error.message);
         res.status(500).json({ error: "Gagal mengambil data dari API eksternal" });
     }
-};
+}
